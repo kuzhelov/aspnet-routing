@@ -6,6 +6,7 @@ using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace RoutingTests
 {
@@ -18,9 +19,12 @@ namespace RoutingTests
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             // app.UseIISPlatformHandler();
+
+            loggerFactory.AddDebug();
+            loggerFactory.AddConsole();
 
             app.Run(async (context) =>
             {
