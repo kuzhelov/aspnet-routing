@@ -32,13 +32,8 @@ namespace RoutingTests
             var routes = new RouteCollection();
 
             routes.Add(new TemplateRoute(
-                target: new ProductsRouteHandler(), 
-                routeTemplate: "{category:alpha:minlength(3)}/{product:int=100}",
-                inlineConstraintResolver: inlineConstraintsResolver));
-
-            routes.Add(new TemplateRoute(
-                target: new RouteHandler("It seems that some variable in the URL does not satisfy restrictions of the Product route"),
-                routeTemplate: "{category}/{product}",
+                target: new ProductQueryRouteHandler(), 
+                routeTemplate: "{category}/{*productQuery}",
                 inlineConstraintResolver: inlineConstraintsResolver));
 
             routes.Add(new RouteHandler("Hello fron the fallback route handler!"));
