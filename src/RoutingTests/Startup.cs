@@ -29,9 +29,8 @@ namespace RoutingTests
             var routes = new RouteCollection();
 
             routes.Add(new TemplateRoute(
-                target: new RouteHandler(
-                    response: "Hello from the templated URL request handler!"),
-                routeTemplate: "api",
+                target: new ProductsRouteHandler(), 
+                routeTemplate: "{category}/{product}",
                 inlineConstraintResolver: new DefaultInlineConstraintResolver(
                     routeOptions: app.ApplicationServices.GetService<IOptions<RouteOptions>>())));
 
