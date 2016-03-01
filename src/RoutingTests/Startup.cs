@@ -32,11 +32,11 @@ namespace RoutingTests
             var routes = new RouteCollection();
 
             routes.Add(new TemplateRoute(
-                target: new ProductQueryRouteHandler(), 
-                routeTemplate: "{category}/{*productQuery}",
+                target: new MvcDiagnosticsHandler(), 
+                routeTemplate: "{controller}/{action}",
                 inlineConstraintResolver: inlineConstraintsResolver));
 
-            routes.Add(new RouteHandler("Hello fron the fallback route handler!"));
+            routes.Add(new RouteHandler("Hello from the fallback route handler!"));
 
             app.UseRouter(routes);
         }
