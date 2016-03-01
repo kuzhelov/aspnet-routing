@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Routing;
-using Microsoft.AspNet.Routing.Template;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.OptionsModel;
 
 namespace RoutingTests
 {
@@ -14,8 +11,7 @@ namespace RoutingTests
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRouting(
-                configureOptions: routeOptions => { });
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -26,19 +22,7 @@ namespace RoutingTests
             loggerFactory.AddDebug();
             loggerFactory.AddConsole();
 
-            var inlineConstraintsResolver = new DefaultInlineConstraintResolver(
-                routeOptions: app.ApplicationServices.GetService<IOptions<RouteOptions>>());
-
-            var routes = new RouteCollection();
-
-            routes.Add(new TemplateRoute(
-                target: new MvcDiagnosticsHandler(), 
-                routeTemplate: "{controller}/{action}",
-                inlineConstraintResolver: inlineConstraintsResolver));
-
-            routes.Add(new RouteHandler("Hello from the fallback route handler!"));
-
-            app.UseRouter(routes);
+            app.UseMvc();
         }
 
         // Entry point for the application.
