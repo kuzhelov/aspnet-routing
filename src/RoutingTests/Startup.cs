@@ -26,13 +26,20 @@ namespace RoutingTests
             loggerFactory.AddDebug();
             loggerFactory.AddConsole();
 
+            var inlineConstraintsResolver = new DefaultInlineConstraintResolver(
+                routeOptions: app.ApplicationServices.GetService<IOptions<RouteOptions>>());
+
             var routes = new RouteCollection();
 
             routes.Add(new TemplateRoute(
                 target: new ProductsRouteHandler(), 
+                routeTemplate: "{category:alpha:minlength(3)}/{product:int}",
+                inlineConstraintResolver: inlineConstraintsResolver));
+
+            routes.Add(new TemplateRoute(
+                target: new RouteHandler("It seems that some variable in the URL does not satisfy restrictions of the Product route"),
                 routeTemplate: "{category}/{product}",
-                inlineConstraintResolver: new DefaultInlineConstraintResolver(
-                    routeOptions: app.ApplicationServices.GetService<IOptions<RouteOptions>>())));
+                inlineConstraintResolver: inlineConstraintsResolver));
 
             routes.Add(new RouteHandler("Hello fron the fallback route handler!"));
 

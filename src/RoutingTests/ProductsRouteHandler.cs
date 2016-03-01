@@ -9,10 +9,10 @@ namespace RoutingTests
         public async Task RouteAsync(RouteContext context)
         {
             var productCategory = context.RouteData.Values["category"];
-            var productName = context.RouteData.Values["product"];
+            var productId = context.RouteData.Values["product"];
 
             await context.HttpContext.Response.WriteAsync(
-                $"Are you asking about '{productName}' from the '{productCategory}' category?\n" +
+                $"Are you asking about product with the ID '{productId}' from the '{productCategory}' category?\n" +
                 "Unfortunately, we cannot offer you something yet :(");
 
             context.IsHandled = true;
