@@ -33,7 +33,7 @@ namespace RoutingTests
 
             routes.Add(new TemplateRoute(
                 target: new ProductsRouteHandler(), 
-                routeTemplate: "{category:alpha:minlength(3)}/{product:int}",
+                routeTemplate: "{category:alpha:minlength(3)}/{product:int=100}",
                 inlineConstraintResolver: inlineConstraintsResolver));
 
             routes.Add(new TemplateRoute(
