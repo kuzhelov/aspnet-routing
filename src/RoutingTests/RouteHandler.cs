@@ -7,6 +7,14 @@ namespace RoutingTests
 {
     public class RouteHandler : IRouter
     {
+        public RouteHandler(
+            bool shouldHandleRequest, 
+            string response)
+        {
+            _shouldHandleRequest = shouldHandleRequest;
+            _response = response;
+        }
+
         public VirtualPathData GetVirtualPath(VirtualPathContext context)
         {
             throw new NotImplementedException();
@@ -14,8 +22,15 @@ namespace RoutingTests
 
         public async Task RouteAsync(RouteContext context)
         {
-            await context.HttpContext.Response.WriteAsync("Hello from the Route Handler!");
-            context.IsHandled = true;
+            if (_response != null)
+            {
+                await context.HttpContext.Response.WriteAsync(_response);
+            }
+
+            context.IsHandled = _shouldHandleRequest;
         }
+
+        private readonly bool _shouldHandleRequest;
+        private readonly string _response;
     }
 }
