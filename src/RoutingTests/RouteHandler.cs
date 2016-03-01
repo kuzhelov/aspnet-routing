@@ -8,10 +8,8 @@ namespace RoutingTests
     public class RouteHandler : IRouter
     {
         public RouteHandler(
-            bool shouldHandleRequest, 
             string response)
         {
-            _shouldHandleRequest = shouldHandleRequest;
             _response = response;
         }
 
@@ -22,15 +20,10 @@ namespace RoutingTests
 
         public async Task RouteAsync(RouteContext context)
         {
-            if (_response != null)
-            {
-                await context.HttpContext.Response.WriteAsync(_response);
-            }
-
-            context.IsHandled = _shouldHandleRequest;
+            await context.HttpContext.Response.WriteAsync(_response);
+            context.IsHandled = true;
         }
 
-        private readonly bool _shouldHandleRequest;
         private readonly string _response;
     }
 }
