@@ -22,7 +22,12 @@ namespace RoutingTests
             loggerFactory.AddDebug();
             loggerFactory.AddConsole();
 
-            app.UseMvc();
+            app.UseMvc(configureRoutes: routes =>
+                {
+                    routes.MapRoute(
+                        name: "default",
+                        template: "{controller=home}/{action=index}");
+                });
         }
 
         // Entry point for the application.
